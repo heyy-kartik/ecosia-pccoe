@@ -1,3 +1,4 @@
+
 # Ecosia PCCOE
 
 Hackathon project for an educational platform with age-appropriate content.
@@ -117,3 +118,9 @@ See `.env.example` for required environment variables.
 ## License
 
 MIT
+=======
+
+
+=======
+# ecosia-pccoe
+Hackathon Repo for Ecosia 
