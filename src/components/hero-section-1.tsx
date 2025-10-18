@@ -159,10 +159,12 @@ export function HeroSection() {
                       <Button
                         asChild
                         size="lg"
-                        className="rounded-lg px-5 text-base"
+                        className="rounded-lg px-5  border border-gray-800 hover:text-gray-900 hover:scale-104 duration-150 text-base"
                       >
                         <Link href="#link">
-                          <span className="text-nowrap">Get Started</span>
+                          <span className="text-nowrap  hover:text-gray-900 dark:hover:text-gray-300 rounded-lg">
+                            Get Started
+                          </span>
                         </Link>
                       </Button>
                     </div>
@@ -324,7 +326,7 @@ const menuItems = [
   { name: "About", href: "#link" },
 ];
 
-const HeroHeader = () => {
+export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 

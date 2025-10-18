@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import { HeroHeader } from "@/components/hero-section-1";
 export const metadata: Metadata = {
   title: "Ecosia PCCOE - Educational Platform",
   description: "Age-appropriate educational content platform",
@@ -23,6 +23,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <HeroHeader />
             {children}
           </ThemeProvider>
         </body>

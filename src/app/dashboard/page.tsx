@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Navigation from "@/components/Navigation";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface User {
@@ -75,10 +80,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
-      
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
+        <div className="mb-8  mt-15">
           <h1 className="text-4xl font-bold mb-2">
             Welcome back, {user?.firstName || "there"}!
           </h1>
@@ -133,7 +136,10 @@ export default function DashboardPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {content.map((item) => (
-              <Card key={item._id} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={item._id}
+                className="hover:shadow-lg transition-shadow"
+              >
                 <CardHeader>
                   <CardTitle className="line-clamp-1">{item.title}</CardTitle>
                   <CardDescription className="line-clamp-2">
