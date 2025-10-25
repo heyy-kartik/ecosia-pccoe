@@ -162,7 +162,7 @@ export function HeroSection() {
                         className="rounded-lg px-5  border border-gray-800 hover:text-gray-900 hover:scale-104 duration-150 text-base"
                       >
                         <Link href="#link">
-                          <span className="text-nowrap  hover:text-gray-900 dark:hover:text-gray-300 rounded-lg">
+                          <span className="text-nowrap  hover:text-gray-900 dark:hover:text-gray-800 rounded-lg">
                             Get Started
                           </span>
                         </Link>

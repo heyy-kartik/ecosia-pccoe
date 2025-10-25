@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer";
 
 interface User {
   _id: string;
@@ -167,6 +168,7 @@ export default function DashboardPage() {
           )}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
