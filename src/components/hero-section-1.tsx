@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button"
+import { ArrowRight, ChevronRight, Menu, Star, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Movingquotes from "@/components/Movingquotes";
 import dynamic from "next/dynamic";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 const ModeToggle = dynamic(
   () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
   { ssr: false }
@@ -54,6 +55,8 @@ const transitionVariants: { item: Variants } = {
   },
 };
 
+//Helper component for small star ratings
+
 export function HeroSection() {
   return (
     <>
@@ -64,18 +67,13 @@ export function HeroSection() {
             aria-hidden
             className="z-[2] absolute inset-0 pointer-events-none isolate opacity-50 contain-strict hidden lg:block"
           >
-            
-
             <div className="w-[35rem] h-[80rem] -translate-y-[350px] absolute left-0 top-0 -rotate-45 rounded-full bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,hsla(0,0%,85%,.08)_0,hsla(0,0%,55%,.02)_50%,hsla(0,0%,45%,0)_80%)]" />
             <div className="h-[80rem] absolute left-0 top-0 w-56 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.06)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]" />
             <div className="h-[80rem] -translate-y-[350px] absolute left-0 top-0 w-56 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]" />
           </div>
           <section>
-          <div className="relative pt-24 md:pt-36">
-
-
-          <div className="absolute inset-0 -z-30 blur-[120px] opacity-40 bg-gradient-to-r from-blue-500/20 via-teal-400/20 to-purple-500/20" />
-
+            <div className="relative pt-24 md:pt-36">
+              <div className="absolute inset-0 -z-30 blur-[120px] opacity-40 bg-gradient-to-r from-blue-500/20 via-teal-400/20 to-purple-500/20" />
 
               <AnimatedGroup
                 variants={{
@@ -105,12 +103,12 @@ export function HeroSection() {
                 className="absolute inset-0 -z-20"
               >
                 <Image
-                      src="/public/logo.jpg"
-                      alt="background logo"
-                      className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
-                      width={1800}
-                      height={1800}
-                    />
+                  src="/public/logo.jpg"
+                  alt="background logo"
+                  className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
+                  width={1800}
+                  height={1800}
+                />
               </AnimatedGroup>
               <div
                 aria-hidden
@@ -119,41 +117,41 @@ export function HeroSection() {
               <div className="mx-auto max-w-7xl px-6">
                 <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                   <AnimatedGroup variants={transitionVariants}>
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                  >
-                    <Link
-                      href="/"
-                      className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, ease: "easeOut" }}
                     >
-                      <span className="text-foreground text-sm">
-                        🎉# 1 Introducing First AI Climate Literacy Platform
-                      </span>
-                      <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
+                      <Link
+                        href="/"
+                        className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+                      >
+                        <span className="text-foreground text-sm">
+                          🎉# 1 Introducing First AI Climate Literacy Platform
+                        </span>
+                        <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
-                      <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
-                        <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
-                          <span className="flex size-6">
-                            <ArrowRight className="m-auto size-3" />
-                          </span>
-                          <span className="flex size-6">
-                            <ArrowRight className="m-auto size-3" />
-                          </span>
+                        <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
+                          <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
+                            <span className="flex size-6">
+                              <ArrowRight className="m-auto size-3" />
+                            </span>
+                            <span className="flex size-6">
+                              <ArrowRight className="m-auto size-3" />
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
                     </motion.div>
 
-                 <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="mt-8 max-w-4xl mx-auto text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]"
-                >
-                  Climate Literacy Platform Powered by AI
-                </motion.h1>
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="mt-8 max-w-4xl mx-auto text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]"
+                    >
+                      Climate Literacy Platform Powered by AI
+                    </motion.h1>
 
                     <p className="mx-auto mt-8 max-w-2xl text-balance text-lg">
                       Empower individuals with the knowledge and tools to
@@ -184,7 +182,6 @@ export function HeroSection() {
                         asChild
                         size="lg"
                         className="rounded-lg px-5 border border-gray-800 hover:text-gray-900 hover:scale-105 duration-200 transition-transform"
-
                       >
                         <Link href="/dashboard">
                           <span className="text-nowrap  hover:text-gray-900 dark:hover:text-gray-800 rounded-lg">
@@ -218,7 +215,6 @@ export function HeroSection() {
                   <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                     <Image
                       className="bg-background aspect-15/8 relative hidden rounded-3xl shadow-2xl shadow-black/20 dark:block"
-
                       src="https://tailark.com//_next/image?url=%2Fmail2.png&w=3840&q=75"
                       alt="app screen"
                       width="2700"
@@ -237,7 +233,7 @@ export function HeroSection() {
             </div>
           </section>
           <section className="bg-background pb-16 pt-16 md:pb-32">
-          <div className="group relative m-auto max-w-5xl px-6 pt-20">
+            <div className="group relative m-auto max-w-5xl px-6 pt-20">
               <div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
                 <Link
                   href="/"
@@ -246,86 +242,10 @@ export function HeroSection() {
                   <ChevronRight className="ml-1 inline-block size-3" />
                 </Link>
               </div>
-<<<<<<< HEAD
-=======
-              <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
 
-                    src="https://html.tailus.io/blocks/customers/nvidia.svg"
-                    alt="Nvidia Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
-
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/column.svg"
-                    alt="Column Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/github.svg"
-                    alt="GitHub Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/nike.svg"
-                    alt="Nike Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                    alt="Lemon Squeezy Logo"
-                    width="80"
-                    height="20"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/laravel.svg"
-                    alt="Laravel Logo"
-                    width="64"
-                    height="16"
-                  />
-                </div>
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/lilly.svg"
-                    alt="Lilly Logo"
-                    width="112"
-                    height="28"
-                  />
-                </div>
-
-                <div className="flex">
-                  <Image
-                    className="mx-auto h-5 w-fit dark:invert transition duration-300 hover:opacity-80 hover:scale-105"
-                    src="https://html.tailus.io/blocks/customers/openai.svg"
-                    alt="OpenAI Logo"
-                    width="96"
-                    height="24"
-                  />
-                </div>
+              <div className="max-w-6xl mx-auto px-6 py-10 grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500  sm:gap-x-16 sm:gap-y-14">
+                <Movingquotes />
               </div>
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
             </div>
           </section>
         </main>
@@ -337,11 +257,9 @@ export function HeroSection() {
 const menuItems = [
   { name: "Features", href: "#link" },
   { name: "Solution", href: "#link" },
-<<<<<<< HEAD
-  { name: "Tutorials", href: "<Tutorial />" },
-=======
-  { name: "Tutorials", href: "#link" },
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
+
+  { name: "Tutorials", href: "tutorials" },
+
   { name: "About", href: "#link" },
 ];
 

@@ -12,11 +12,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -29,11 +25,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -43,11 +35,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("leading-none font-semibold", className)}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
@@ -57,11 +45,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
@@ -74,11 +58,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -88,11 +68,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("px-6", className)}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
@@ -102,11 +78,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
       {...props}
     />
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
 }
 
 export {
@@ -117,8 +89,4 @@ export {
   CardAction,
   CardDescription,
   CardContent,
-<<<<<<< HEAD
-}
-=======
 };
->>>>>>> 8d1ceceff861ecdaff34b9694b1de5906b58474f
