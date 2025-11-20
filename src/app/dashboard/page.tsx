@@ -95,9 +95,9 @@ export default function Page() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">
+        <div className="text-muted-foreground">
           <ProgressAnalytics /> Loading your dashboard...
-        </p>
+        </div>
       </div>
     );
   }
@@ -309,7 +309,7 @@ export default function Page() {
 
         {/* Analytics */}
         <h2 className="text-2xl font-bold mb-4">🤖 AI Learning Insights</h2>
-        <ProgressAnalytics className="mb-10" />
+        <ProgressAnalytics />
 
         {/* Recommended Content */}
         <div className="mb-12">
