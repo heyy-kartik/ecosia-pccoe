@@ -47,10 +47,10 @@ export default function DashboardPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex flex-row w-full min-h-screen bg-[#f5f3f0] dark:bg-black rounded-xl p-6 text-sm mt-12"
+      className="flex flex-row w-full h-screen overflow-hidden bg-[#f5f3f0] dark:bg-black rounded-xl text-sm mt-12"
     >
       {/* Sidebar */}
-      <aside className="w-56 min-h-screen bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
+      <aside className="w-56 h-full bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
         {/* Top section */}
         <div className="px-5 py-4 flex items-center gap-2">
           <Leaf className="text-green-400" size={22} />
@@ -109,7 +109,7 @@ export default function DashboardPage() {
         </div>
       </aside>
       
-      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-auto text-black dark:text-white">
+      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-scroll text-black dark:text-white">
 
         {/* Overview Tab */}
         {tab === "Overview" && (
