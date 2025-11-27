@@ -1,19 +1,11 @@
-import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { HeroHeader } from "@/components/hero-section-1";
-import { SidebarProvider } from "@/components/ui/sidebar";
-export const metadata: Metadata = {
-  title: "Ecosia PCCOE - Educational Platform",
-  description: "Age-appropriate educational content platform",
-};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+import { ThemeProvider } from "@/components/theme-provider";
+
+import { SidebarProvider } from "@/components/ui/sidebar";
+
+import React from "react";
+export default function layout() {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
@@ -24,7 +16,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <SidebarProvider>{children}</SidebarProvider>
           </ThemeProvider>
         </body>
       </html>

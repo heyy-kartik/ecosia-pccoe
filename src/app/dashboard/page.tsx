@@ -39,6 +39,9 @@ export default function DashboardPage() {
 
   const { scrollY } = useScroll();
 
+  const totalViews = content.reduce((sum, c) => sum + c.views, 0);
+  const uniqueCategories = new Set(content.map((c) => c.category)).size;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

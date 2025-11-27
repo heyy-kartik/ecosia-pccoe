@@ -1,9 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navigation from "@/components/Navigation";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DashboardLayout } from "@/components/dashboard-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 interface Content {
   _id: string;
@@ -23,13 +39,21 @@ export default function ContentPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const categories = ["all", "science", "math", "history", "arts", "technology"];
+  const categories = [
+    "all",
+    "science",
+    "math",
+    "history",
+    "arts",
+    "technology",
+  ];
 
   useEffect(() => {
     async function fetchContent() {
       setLoading(true);
       try {
-        const categoryFilter = selectedCategory === "all" ? "" : `&category=${selectedCategory}`;
+        const categoryFilter =
+          selectedCategory === "all" ? "" : `&category=${selectedCategory}`;
         const response = await fetch(
           `/api/content?page=${page}&limit=12${categoryFilter}`
         );
@@ -49,19 +73,35 @@ export default function ContentPage() {
   }, [page, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Explore Content</h1>
+    <DashboardLayout>
+      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <div className="flex items-center gap-2 px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Browse Content</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </header>
+
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="mb-4">
+          <h1 className="text-3xl font-bold mb-2">Explore Content</h1>
           <p className="text-muted-foreground">
             Discover educational content tailored for you
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
           {categories.map((category) => (
             <Button
               key={category}
@@ -83,9 +123,12 @@ export default function ContentPage() {
           </div>
         ) : (
           <>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               {content.map((item) => (
-                <Card key={item._id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={item._id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardHeader>
                     <CardTitle className="line-clamp-1">{item.title}</CardTitle>
                     <CardDescription className="line-clamp-2">
@@ -146,7 +189,7 @@ export default function ContentPage() {
             )}
           </>
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

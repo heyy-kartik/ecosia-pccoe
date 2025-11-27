@@ -1,8 +1,13 @@
 "use client";
-
+import EnhancedOnboarding from "@/components/EnhancedOnboarding";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const ageGroups = [
@@ -22,7 +27,9 @@ const ageGroups = [
     description: "Advanced content and resources",
   },
 ];
-
+export function OnboardingPage1() {
+  return <EnhancedOnboarding />;
+}
 export default function OnboardingPage() {
   const [selectedGroup, setSelectedGroup] = useState<string>("");
   const [loading, setLoading] = useState(false);
