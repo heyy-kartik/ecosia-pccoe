@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Movingquotes from "@/components/Movingquotes";
 import dynamic from "next/dynamic";
-import {motion,Variants} from "framer-motion";
+import { motion, Variants } from "framer-motion";
 const ModeToggle = dynamic(
   () => import("@/components/toggle-dark").then((mod) => mod.ModeToggle),
   { ssr: false }
@@ -100,12 +100,12 @@ export function HeroSection() {
                 className="absolute inset-0 -z-20"
               >
                 <Image
-                      src="/logo.jpg"
-                      alt="background logo"
-                      className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
-                      width={1800}
-                      height={1800}
-                    />
+                  src="/logo.jpg"
+                  alt="background logo"
+                  className="absolute inset-0 -z-20 opacity-[0.05] object-contain mx-auto"
+                  width={1800}
+                  height={1800}
+                />
               </AnimatedGroup>
               <div
                 aria-hidden
@@ -187,19 +187,6 @@ export function HeroSection() {
                         </Link>
                       </Button>
                     </div>
-                    <Button
-                      key={2}
-                      asChild
-                      size="lg"
-                      variant="ghost"
-                      className="h-10.5 rounded-xl px-5"
-                    >
-                      <Link href="/dashboard">
-                        <span className="text-nowrap rounded-lg">
-                          Request a demo
-                        </span>
-                      </Link>
-                    </Button>
                   </AnimatedGroup>
                 </div>
               </div>
@@ -277,7 +264,8 @@ export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
   const isDashboard = pathname.startsWith("/dashboard");
   const [fadeOpacity, setFadeOpacity] = React.useState(1);
 

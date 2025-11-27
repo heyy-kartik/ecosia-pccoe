@@ -50,7 +50,7 @@ export default function DashboardPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex flex-row w-full h-screen overflow-hidden bg-[#f5f3f0] dark:bg-black rounded-xl text-sm mt-12"
+      className="flex flex-row w-full h-screen overflow-hidden bg-[#f5f3f0] dark:bg-black rounded-xl text-sm mt-3"
     >
       {/* Sidebar */}
       <aside className="w-56 h-full bg-transparent backdrop-blur-xl text-black dark:text-white flex flex-col rounded-xl text-sm">
@@ -98,10 +98,11 @@ export default function DashboardPage() {
               >
                 <BarChart3 size={18} /> Insights
               </Link>
-
-              <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
-                <MessagesSquare size={18} /> AI Assistant
-              </button>
+              <Link href="/dashboard/ai-assistant">
+                <button className="flex items-center gap-3 px-3 py-1.5 rounded-lg hover:bg-white/10 transition">
+                  <MessagesSquare size={18} /> AI Assistant
+                </button>
+              </Link>
             </nav>
           </div>
 
@@ -119,7 +120,7 @@ export default function DashboardPage() {
         </div>
       </aside>
 
-      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y-scroll text-black dark:text-white">
+      <div className="flex-1 p-6 flex flex-col gap-10 overflow-y- text-black dark:text-white">
         {/* Overview Tab */}
         {tab === "Overview" && (
           <div className="flex flex-col gap-10">
