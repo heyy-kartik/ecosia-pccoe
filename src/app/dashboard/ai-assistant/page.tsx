@@ -177,11 +177,14 @@ export default function AIAssistantPage() {
 
   const handleQuestionSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const message = formData.get("message") as string;
-    if (message?.trim()) {
+    const input = e.currentTarget.querySelector("input") as HTMLInputElement;
+    const message = input?.value?.trim();
+    if (message) {
       sendMessage(message, selectedCategory);
-      (e.target as HTMLFormElement).reset();
+      // Clear the input immediately
+      if (input) {
+        input.value = "";
+      }
     }
   };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
   Lightbulb,
   Footprints,
   TreePine,
+  Binoculars,
   ChevronRight,
 } from "lucide-react";
 
@@ -18,36 +20,42 @@ const activities = [
     description: "Track your daily water consumption and learn to reduce waste.",
     icon: <Droplets size={22} />,
     difficulty: "Easy",
+    href: "/dashboard/activities/water-usage-tracker",
   },
   {
     title: "One-Day Zero Waste Challenge",
     description: "Try living one day without creating any non-recyclable waste.",
     icon: <Recycle size={22} />,
     difficulty: "Medium",
+    href: "/dashboard/activities/zero-waste-challenge",
   },
   {
     title: "Energy Saving Mission",
     description: "Reduce electricity use by 20% for 24 hours.",
     icon: <Lightbulb size={22} />,
     difficulty: "Hard",
+    href: "/dashboard/activities/energy-saving-mission",
   },
   {
     title: "Plant a Tree Activity",
     description: "Plant a sapling and document its growth over 30 days.",
     icon: <TreePine size={22} />,
     difficulty: "Easy",
+    href: "/dashboard/activities/plant-a-tree",
   },
   {
     title: "Carbon Footprint Challenge",
     description: "Calculate your weekly carbon footprint and lower it by 10%.",
     icon: <Footprints size={22} />,
     difficulty: "Medium",
+    href: "/dashboard/activities/carbon-footprint-challenge",
   },
   {
     title: "Local Ecosystem Study",
     description: "Observe and document biodiversity in nearby areas.",
-    icon: <TreePine size={22} />,
+    icon: <Binoculars size={22} />,
     difficulty: "Hard",
+    href: "/dashboard/activities/local-ecosystem-study",
   },
 ];
 
@@ -91,9 +99,11 @@ export default function ActivitiesPage() {
                   {activity.difficulty}
                 </span>
 
-                <Button className="flex items-center gap-1">
-                  Start Activity
-                  <ChevronRight size={16} />
+                <Button className="flex items-center gap-1" asChild disabled={!activity.href}>
+                  <Link href={activity.href ?? "#"}>
+                    Start Activity
+                    <ChevronRight size={16} />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
