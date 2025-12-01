@@ -10,6 +10,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^2.0.32",
     "@clerk/nextjs": "^6.33.2",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
@@ -31,10 +32,12 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tabler/icons-react": "^3.35.0",
     "@tanstack/react-table": "^8.21.3",
+    "ai": "^5.0.104",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",
     "framer-motion": "^12.23.24",
+    "groq-sdk": "^0.37.0",
     "lucide-react": "^0.544.0",
     "mongoose": "^8.19.0",
     "motion": "^12.23.24",

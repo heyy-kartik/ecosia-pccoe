@@ -1,5 +1,5 @@
 // simple wrapper using fetch so you can inspect requests easily
-export async function groqRequest(path, body) {
+export async function groq(path, body) {
   const base = process.env.GROQ_API_BASE || "https://api.groq.com/openai/v1";
   const res = await fetch(`${base}${path}`, {
     method: "POST",
