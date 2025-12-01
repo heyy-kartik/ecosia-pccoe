@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useUser } from "@clerk/nextjs";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { DashboardHeader } from "./DashboardHeader";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -15,14 +16,14 @@ interface DashboardLayoutProps {
 
 /**
  * UnifiedDashboardLayout - A consistent layout component for all dashboard pages
- * 
+ *
  * Features:
  * - Fixed sidebar navigation (280px width on desktop)
  * - Responsive mobile behavior with collapsible sidebar
  * - Single scrollable main content area
  * - Sticky header with search and user actions
  * - Proper overflow handling to prevent double scrollbars
- * 
+ *
  * Requirements addressed:
  * - 1.1: Consistent sidebar navigation across all dashboard pages
  * - 2.1: Single scrollable area without multiple scrollbars
@@ -35,7 +36,34 @@ export function UnifiedDashboardLayout({
   showSearch = true,
   customActions,
 }: DashboardLayoutProps) {
+  const { isLoaded, isSignedIn } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  // Show loading state while Clerk is loading
+  if (!isLoaded) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirect to sign-in if not authenticated (this shouldn't happen due to middleware, but good fallback)
+  if (!isSignedIn) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <p className="text-lg font-medium mb-2">Authentication Required</p>
+          <p className="text-muted-foreground">
+            Please sign in to access the dashboard.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
@@ -63,9 +91,7 @@ export function UnifiedDashboardLayout({
 
         {/* Main Content - Single Scrollable Area */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden bg-background">
-          <div className="px-4 py-6 md:px-6">
-            {children}
-          </div>
+          <div className="px-4 py-6 md:px-6">{children}</div>
         </main>
       </div>
     </div>

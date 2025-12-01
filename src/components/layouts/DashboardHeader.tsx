@@ -1,8 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Menu, Search, Bell, User, Settings, LogOut, Moon, Sun } from "lucide-react";
+import {
+  Menu,
+  Search,
+  Bell,
+  User,
+  Settings,
+  LogOut,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { useTheme } from "next-themes";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,15 +33,29 @@ interface HeaderProps {
   onMobileMenuToggle?: () => void;
 }
 
+// User data interface
+interface UserData {
+  _id: string;
+  clerkId: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  age?: number;
+  ageGroup?: "child" | "teen" | "adult";
+  onboardingCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /**
  * DashboardHeader - Sticky header component for the dashboard
- * 
+ *
  * Features:
  * - Sticky positioning at top of content area
  * - Search bar functionality with proper input styling
  * - User profile dropdown with theme toggle and user actions
  * - Mobile sidebar trigger button for responsive behavior
- * 
+ *
  * Requirements addressed:
  * - 1.4: Mobile sidebar trigger for responsive behavior
  * - 2.4: Sticky header at top of content area
@@ -43,13 +68,103 @@ export const DashboardHeader = React.memo(function DashboardHeader({
   onMobileMenuToggle,
 }: HeaderProps) {
   const { theme, setTheme } = useTheme();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const { signOut } = useClerk();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [userData, setUserData] = React.useState<UserData | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = React.useState(true);
+
+  // Fetch user data from database
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      if (!isSignedIn) {
+        setIsLoadingUser(false);
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/users");
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          console.warn(
+            "Failed to fetch user data from database, using Clerk data only"
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // Continue with Clerk data only
+      } finally {
+        setIsLoadingUser(false);
+      }
+    };
+
+    if (isLoaded) {
+      fetchUserData();
+    }
+  }, [isLoaded, isSignedIn]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Search functionality will be implemented based on requirements
     console.log("Search query:", searchQuery);
   };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  const handleSettings = () => {
+    router.push("/dashboard/settings");
+  };
+
+  const handleProfile = () => {
+    router.push("/dashboard/profile");
+  };
+
+  // Get display name and email
+  const getDisplayName = () => {
+    if (userData?.firstName || userData?.lastName) {
+      return `${userData.firstName || ""} ${userData.lastName || ""}`.trim();
+    }
+    if (user?.firstName || user?.lastName) {
+      return `${user.firstName || ""} ${user.lastName || ""}`.trim();
+    }
+    return user?.emailAddresses?.[0]?.emailAddress?.split("@")?.[0] || "User";
+  };
+
+  const getDisplayEmail = () => {
+    return userData?.email || user?.emailAddresses?.[0]?.emailAddress || "";
+  };
+
+  const getInitials = () => {
+    const name = getDisplayName();
+    if (name === "User") return "U";
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  if (!isLoaded) {
+    return (
+      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center justify-between px-4 md:px-6">
+          <div className="h-6 w-32 bg-muted animate-pulse rounded" />
+          <div className="h-10 w-10 bg-muted animate-pulse rounded-full" />
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -127,18 +242,30 @@ export const DashboardHeader = React.memo(function DashboardHeader({
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
-            <Sun size={18} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon size={18} className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Sun
+              size={18}
+              className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+            />
+            <Moon
+              size={18}
+              className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+            />
           </Button>
 
           {/* User Profile Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+              <Button
+                variant="ghost"
+                className="relative h-10 w-10 rounded-full"
+              >
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src="/avatar-placeholder.png" alt="User avatar" />
+                  <AvatarImage
+                    src={user?.imageUrl || "/avatar-placeholder.png"}
+                    alt="User avatar"
+                  />
                   <AvatarFallback className="bg-gradient-to-r from-green-500 to-blue-500 text-white">
-                    U
+                    {isLoadingUser ? "..." : getInitials()}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -146,23 +273,34 @@ export const DashboardHeader = React.memo(function DashboardHeader({
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">User Name</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    user@example.com
+                  <p className="text-sm font-medium leading-none">
+                    {isLoadingUser ? "Loading..." : getDisplayName()}
                   </p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {isLoadingUser ? "" : getDisplayEmail()}
+                  </p>
+                  {userData?.ageGroup && (
+                    <p className="text-xs leading-none text-muted-foreground capitalize">
+                      {userData.ageGroup} •{" "}
+                      {userData.age ? `Age ${userData.age}` : ""}
+                    </p>
+                  )}
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleProfile}>
                 <User size={16} className="mr-2" />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSettings}>
                 <Settings size={16} className="mr-2" />
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-600">
+              <DropdownMenuItem
+                onClick={handleLogout}
+                className="text-red-600 focus:text-red-600"
+              >
                 <LogOut size={16} className="mr-2" />
                 Log out
               </DropdownMenuItem>

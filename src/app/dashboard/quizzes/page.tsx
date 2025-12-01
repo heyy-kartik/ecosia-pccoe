@@ -17,6 +17,7 @@ import {
   Sun,
   TestTube,
   ChevronRight,
+  Link,
 } from "lucide-react";
 
 const quizList = [
@@ -95,12 +96,10 @@ export default function QuizzesPage() {
       className="flex flex-col gap-6 w-full"
     >
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight mb-2">
-          Quizzes
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight mb-2">Quizzes</h1>
         <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-          Test your climate knowledge. Smart AI will recommend harder or
-          easier topics based on your results.
+          Test your climate knowledge. Smart AI will recommend harder or easier
+          topics based on your results.
         </p>
       </div>
 
@@ -140,10 +139,12 @@ export default function QuizzesPage() {
                   {quiz.difficulty}
                 </span>
 
-                <Button className="flex items-center gap-2">
-                  Start
-                  <ChevronRight size={16} />
-                </Button>
+                <Link href="#">
+                  <Button className="flex items-center gap-2">
+                    Start
+                    <ChevronRight size={16} />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </motion.div>
