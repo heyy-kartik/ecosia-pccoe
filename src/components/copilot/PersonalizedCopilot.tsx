@@ -94,9 +94,9 @@ export function PersonalizedCopilot({ className }: PersonalizedCopilotProps) {
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <Select
-            value={focusArea ?? ""}
+            value={focusArea ?? "auto-focus"}
             onValueChange={(value) => {
-              const val = value || undefined;
+              const val = value === "auto-focus" ? undefined : value;
               setFocusArea(val);
               void fetchRecommendations(val);
             }}
@@ -106,7 +106,7 @@ export function PersonalizedCopilot({ className }: PersonalizedCopilotProps) {
               <SelectValue placeholder="Auto focus" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Auto focus</SelectItem>
+              <SelectItem value="auto-focus">Auto focus</SelectItem>
               {focusOptions.map((option) => (
                 <SelectItem key={option} value={option}>
                   {option}

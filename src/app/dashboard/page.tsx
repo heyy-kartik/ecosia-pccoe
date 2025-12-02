@@ -5,6 +5,7 @@ import { StatCard } from "./activities/components/stat-card";
 import { ClimateChart } from "./activities/components/climate-chart";
 import { LearningPathCard } from "@/components/learning-path-card";
 import { TopicsTable } from "./activities/components/topics-table";
+import { PersonalizedCopilot } from "@/components/copilot/PersonalizedCopilot";
 import { Leaf, Target, BookOpen, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
@@ -84,6 +85,17 @@ export default function DashboardPage() {
             className="w-full"
           >
             <ClimateChart />
+          </motion.div>
+
+          {/* Personalized Copilot — full width below chart */}
+          <motion.div
+            variants={parallax}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="w-full"
+          >
+            <PersonalizedCopilot />
           </motion.div>
 
           {/* Learning Path — horizontal full width */}

@@ -1,6 +1,7 @@
 "use strict";
 
 import dashboardItems from "@/app/dashboard/data.json";
+import { parseLearnerProgress } from "@/lib/utils";
 import type { LearnerSnapshot } from "@/types/copilot";
 
 /**
@@ -14,6 +15,9 @@ export function buildLearnerSnapshot(): LearnerSnapshot {
   const inProcess = dashboardItems.filter((item) => item.status === "In Process");
   const backlog = dashboardItems.filter((item) => item.status !== "Done" && item.status !== "In Process");
 
+  // Use the enhanced progress parsing function for deeper insights
+  const progressData = parseLearnerProgress(dashboardItems);
+
   const focusAreas = [...inProcess, ...backlog]
     .slice(0, 6)
     .map(({ id, header, status, type, reviewer }) => ({
@@ -24,8 +28,15 @@ export function buildLearnerSnapshot(): LearnerSnapshot {
       reviewer,
     }));
 
-  const strengths = completed.slice(0, 3).map((item) => item.header);
-  const improvementAreas = focusAreas.slice(0, 3).map((item) => item.title);
+  // Enhanced strengths based on progress analysis
+  const strengths = progressData.strongTopics.length > 0 
+    ? progressData.strongTopics
+    : completed.slice(0, 3).map((item) => item.header);
+
+  // Use weak topics from progress analysis as improvement areas
+  const improvementAreas = progressData.weakTopics.length > 0
+    ? progressData.weakTopics
+    : focusAreas.slice(0, 3).map((item) => item.title);
 
   return {
     totals: {
@@ -36,7 +47,7 @@ export function buildLearnerSnapshot(): LearnerSnapshot {
     focusAreas,
     strengths,
     improvementAreas,
-    streakDays: 4,
+    streakDays: progressData.currentStreak,
     lastActive: new Date().toISOString(),
   };
 }
