@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   Card,
   CardTitle,
@@ -17,9 +18,9 @@ import {
   Sun,
   TestTube,
   ChevronRight,
-  Link,
+  ArrowLeft,
 } from "lucide-react";
-
+import OpinionStageEmbed from "@/components/OpinionStageEmbed";
 const quizList = [
   {
     title: "Climate Basics",
@@ -27,6 +28,7 @@ const quizList = [
       "Understand greenhouse gases, climate change and sustainability.",
     icon: <Globe size={22} />,
     difficulty: "Easy",
+    widgetId: "e48b1d0e-b406-4677-bba6-3f098ea69e77",
   },
   {
     title: "Renewable Energy",
@@ -34,18 +36,21 @@ const quizList = [
       "Test your knowledge on solar, wind, hydro and future energy sources.",
     icon: <Sun size={22} />,
     difficulty: "Medium",
+    widgetId: "f59c2e1f-c517-5788-ccb7-4f109fb7ae88",
   },
   {
     title: "Carbon Footprint",
-    description: "Learn how daily actions impact Earth’s carbon cycle.",
+    description: "Learn how daily actions impact Earth's carbon cycle.",
     icon: <Recycle size={22} />,
     difficulty: "Easy",
+    widgetId: "g60d3f2g-d628-6899-ddc8-5f21afb8bf99",
   },
   {
     title: "Global Warming Causes",
     description: "Explore the science behind rising global temperatures.",
     icon: <Battery size={22} />,
     difficulty: "Hard",
+    widgetId: "h71e4g3h-e739-79aa-eed9-6f32bgc9cgaa",
   },
   {
     title: "Ecosystems & Biodiversity",
@@ -53,6 +58,7 @@ const quizList = [
       "Understanding how ecosystems maintain balance and why species matter.",
     icon: <Leaf size={22} />,
     difficulty: "Medium",
+    widgetId: "i82f5h4i-f84a-8abb-ffea-7f43chd0dhbb",
   },
   {
     title: "Environmental Chemistry",
@@ -60,34 +66,80 @@ const quizList = [
       "Pollutants, chemical reactions and the impact on air + water.",
     icon: <TestTube size={22} />,
     difficulty: "Hard",
+    widgetId: "j93g6i5j-g95b-9bcc-gffb-8f54die1eicc",
   },
   {
     title: "Sustainable Living",
     description: "Practical ways to adopt an eco-friendly lifestyle.",
     icon: <Leaf size={22} />,
     difficulty: "Easy",
+    widgetId: "k04h7j6k-ha6c-acdd-hggc-9f65ejf2fjdd",
   },
   {
     title: "Climate Policies",
     description: "Understand global climate agreements and policymaking.",
     icon: <Globe size={22} />,
     difficulty: "Medium",
+    widgetId: "l15i8k7l-ib7d-bdee-ihgd-ag76fkg3gkee",
   },
   {
     title: "Ocean Conservation",
     description: "Learn about marine ecosystems and protection efforts.",
     icon: <Recycle size={22} />,
     difficulty: "Medium",
+    widgetId: "m26j9l8m-jc8e-ceff-jihge-bh87glh4hlff",
   },
   {
     title: "Wildlife Protection",
     description: "Explore endangered species and conservation strategies.",
     icon: <Sun size={22} />,
     difficulty: "Hard",
+    widgetId: "n37ka9n-kd9f-dfgg-kjhif-ci98hmi5imgg",
   },
 ];
 
 export default function QuizzesPage() {
+  const [selectedQuiz, setSelectedQuiz] = useState<string | null>(null);
+  const [selectedQuizTitle, setSelectedQuizTitle] = useState<string>("");
+
+  const handleStartQuiz = (widgetId: string, title: string) => {
+    setSelectedQuiz(widgetId);
+    setSelectedQuizTitle(title);
+  };
+
+  const handleBackToQuizzes = () => {
+    setSelectedQuiz(null);
+    setSelectedQuizTitle("");
+  };
+
+  if (selectedQuiz) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col gap-6 w-full"
+      >
+        <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            onClick={handleBackToQuizzes}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft size={16} />
+            Back to Quizzes
+          </Button>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {selectedQuizTitle}
+          </h1>
+        </div>
+        <div className="w-full">
+          <OpinionStageEmbed widgetId={selectedQuiz} />
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -139,12 +191,13 @@ export default function QuizzesPage() {
                   {quiz.difficulty}
                 </span>
 
-                <Link href="#">
-                  <Button className="flex items-center gap-2">
-                    Start
-                    <ChevronRight size={16} />
-                  </Button>
-                </Link>
+                <Button
+                  onClick={() => handleStartQuiz(quiz.widgetId, quiz.title)}
+                  className="flex items-center gap-2"
+                >
+                  Start
+                  <ChevronRight size={16} />
+                </Button>
               </CardContent>
             </Card>
           </motion.div>
