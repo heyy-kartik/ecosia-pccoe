@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Sparkles } from "lucide-react";
 import { Button2 } from "@/components/ui/button2";
-
+import Link from "next/link";
 interface Suggestion {
   title: string;
   description: string;
@@ -15,7 +15,8 @@ interface Suggestion {
 const suggestions: Suggestion[] = [
   {
     title: "Start with Climate Basics",
-    description: "Understand greenhouse gases, global warming & climate systems.",
+    description:
+      "Understand greenhouse gases, global warming & climate systems.",
     progress: 70,
     icon: <Leaf className="text-green-600 dark:text-green-400" size={20} />,
   },
@@ -23,7 +24,9 @@ const suggestions: Suggestion[] = [
     title: "Try Renewable Energy",
     description: "Explore solar, wind, hydro & new sustainable tech.",
     progress: 45,
-    icon: <Sparkles className="text-yellow-600 dark:text-yellow-400" size={20} />,
+    icon: (
+      <Sparkles className="text-yellow-600 dark:text-yellow-400" size={20} />
+    ),
   },
 ];
 
@@ -37,7 +40,6 @@ export function LearningPathCard({ className }: { className?: string }) {
     >
       {/* Outer Glass Container */}
       <div className="rounded-2xl p-6 bg-[#f4f4f4] dark:bg-white/5 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.25)] space-y-5 border-none">
-
         {/* Header */}
         <div className="space-y-1">
           <h2 className="text-xl font-semibold text-black dark:text-white tracking-wide">
@@ -62,7 +64,9 @@ export function LearningPathCard({ className }: { className?: string }) {
               <div className="flex flex-col w-3/5 gap-3">
                 <div className="flex items-center gap-2">
                   {item.icon}
-                  <h3 className="text-lg font-medium text-black dark:text-white">{item.title}</h3>
+                  <h3 className="text-lg font-medium text-black dark:text-white">
+                    {item.title}
+                  </h3>
                 </div>
 
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-tight">
@@ -82,16 +86,21 @@ export function LearningPathCard({ className }: { className?: string }) {
 
               {/* Right Section: Button */}
               <div className="flex w-2/5 items-center justify-end">
-                <Button2
-                  className="px-5 py-2.5 flex items-center gap-2
+                <Link href="/dashboard/quizzes">
+                  <Button2
+                    className="px-5 py-2.5 flex items-center gap-2
                              text-black dark:text-white 
                              bg-black/5 dark:bg-white/5 
                              hover:bg-black/10 dark:hover:bg-white/10
                              rounded-lg shadow-sm hover:shadow transition-all duration-200"
-                >
-                  Continue
-                  <ArrowRight size={16} className="text-black dark:text-white" />
-                </Button2>
+                  >
+                    Continue
+                    <ArrowRight
+                      size={16}
+                      className="text-black dark:text-white"
+                    />
+                  </Button2>
+                </Link>
               </div>
             </motion.div>
           ))}
