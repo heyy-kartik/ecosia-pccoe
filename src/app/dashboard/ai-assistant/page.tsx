@@ -194,7 +194,7 @@ export default function AIAssistantPage() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`flex gap-3 ${
+      className={`flex gap-4 items-start ${
         message.role === "user" ? "flex-row-reverse" : ""
       }`}
     >
@@ -211,42 +211,36 @@ export default function AIAssistantPage() {
       </Avatar>
 
       <div
-        className={`flex flex-col ${
-          message.role === "user" ? "items-end" : "items-start"
-        } max-w-[80%]`}
+        className={`px-4 py-2 transition-all duration-300 ${
+          message.role === "user"
+            ? "rounded-2xl bg-green-500/25 text-white shadow-sm"
+            : "rounded-2xl bg-neutral-700/30 text-white/90 shadow-sm"
+        }`}
       >
-        <div
-          className={`rounded-2xl px-4 py-3 ${
-            message.role === "user"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted border"
-          }`}
-        >
-          <p className="text-sm leading-relaxed whitespace-pre-wrap">
-            {message.content}
-          </p>
-        </div>
+        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+          {message.content}
+        </p>
+      </div>
 
-        <div className="flex items-center gap-2 mt-1 px-1">
-          <span className="text-xs text-muted-foreground">
-            {message.timestamp.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-          {message.category && (
-            <Badge
-              variant="secondary"
-              className={`text-xs ${
-                CATEGORY_COLORS[
-                  message.category as keyof typeof CATEGORY_COLORS
-                ] || ""
-              }`}
-            >
-              {categories[message.category]?.name || message.category}
-            </Badge>
-          )}
-        </div>
+      <div className="flex items-center gap-2 mt-1 px-1 opacity-70">
+        <span className="text-xs text-muted-foreground">
+          {message.timestamp.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </span>
+        {message.category && (
+          <Badge
+            variant="secondary"
+            className={`text-xs ${
+              CATEGORY_COLORS[
+                message.category as keyof typeof CATEGORY_COLORS
+              ] || ""
+            }`}
+          >
+            {categories[message.category]?.name || message.category}
+          </Badge>
+        )}
       </div>
     </motion.div>
   );
@@ -261,26 +255,32 @@ export default function AIAssistantPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto h-[calc(100vh-12rem)] flex flex-col">
+    <div className="max-w-6xl mx-auto h-[calc(100vh-18rem)] flex flex-col">
       {/* Header */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-center gap-3 mb-2"
         >
-        <div className="p-2 rounded-full bg-linear-to-r from-green-600 to-blue-600 text-white">
+        <div className="p-2.5 rounded-full bg-neutral-800/60 dark:bg-neutral-800/60 border border-white/10 shadow-md shadow-black/20">
             <Sparkles size={24} />
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl font-bold tracking-tight text-white dark:text-white">
             Ecosia Climate AI Assistant
           </h1>
         </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 0.6, scaleX: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="h-px w-24 mx-auto bg-white/20 dark:bg-white/20 mb-3 rounded-full"
+        />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-muted-foreground max-w-2xl mx-auto"
+          className="text-muted-foreground max-w-xl mx-auto text-sm opacity-70"
         >
           Ask me anything about climate change, sustainability, and
           environmental topics!
@@ -304,9 +304,12 @@ export default function AIAssistantPage() {
             return (
               <Button
                 key={key}
-                variant={isSelected ? "default" : "outline"}
                 size="sm"
-                className={`${isSelected ? "ring-2 ring-primary/20" : ""}`}
+                className={`px-3 py-1.5 rounded-full text-xs md:text-sm transition-all
+    ${isSelected 
+      ? "bg-green-600 text-white shadow-sm" 
+      : "bg-white/10 dark:bg-white/10 text-white/80 hover:bg-white/20"
+    }`}
                 onClick={() =>
                   setSelectedCategory(selectedCategory === key ? "" : key)
                 }
@@ -319,8 +322,8 @@ export default function AIAssistantPage() {
       </motion.div>
 
       {/* Chat Interface */}
-      <Card className="flex-1 flex flex-col ">
-        <CardHeader className="pb-3 border-b">
+      <Card className="flex-1 flex flex-col rounded-3xl bg-neutral-900/40 dark:bg-neutral-900/40 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.25)] border border-white/5 transition-all duration-300">
+        <CardHeader className="pb-4 border-b border-white/5">
           <CardTitle className="text-lg flex items-center gap-2">
             <Bot className="h-5 w-5 text-green-600" />
             Ecosia Chat
@@ -338,7 +341,7 @@ export default function AIAssistantPage() {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="flex-1 flex flex-col min-h-0 p-0">
+        <CardContent className="flex-1 flex flex-col min-h-0 p-0 rounded-b-3xl overflow-hidden">
           {/* Messages */}
           <ScrollArea className="flex-1 p-4">
             <div className="space-y-4">
@@ -386,30 +389,17 @@ export default function AIAssistantPage() {
                 ))
               )}
 
-              {isLoading && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex gap-3"
-                >
-                  <Loader2 size={16} className="animate-spin" />
-
-                  <div className="bg-muted border rounded-2xl px-4 py-3">
-                    <p className="text-sm text-muted-foreground">Thinking...</p>
-                  </div>
-                </motion.div>
-              )}
-
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
 
           {/* Input Form */}
-          <div className="border-t p-4">
+          <div className="rounded-full px-5 py-3 bg-neutral-900/60 dark:bg-neutral-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.15)] backdrop-blur-md transition-all duration-300">
             <PlaceholdersAndVanishInput
               placeholders={climatePlaceholders}
               onChange={() => {}}
               onSubmit={handleQuestionSubmit}
+              className="text-sm"
             />
           </div>
         </CardContent>

@@ -106,7 +106,7 @@ export function PersonalizedCopilot({ className }: PersonalizedCopilotProps) {
               <SelectValue placeholder="Auto focus" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Auto focus</SelectItem>
+              <SelectItem value="auto">Auto focus</SelectItem>
               {focusOptions.map((option) => (
                 <SelectItem key={option} value={option}>
                   {option}
