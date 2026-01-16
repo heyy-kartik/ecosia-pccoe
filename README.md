@@ -123,3 +123,12 @@ MIT
 
 # ecosia
 Hackathon Repo for Ecosia 
+
+# contibutors
+## Contributors
+
+- Kartik Jagdale  
+- Vishal Gaikwad  
+- Anand Kumar  
+- Krishna Aundhekar  
+
